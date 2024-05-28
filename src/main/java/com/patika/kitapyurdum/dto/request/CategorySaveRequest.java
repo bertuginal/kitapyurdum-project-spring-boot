@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Setter
 public class CategorySaveRequest {
 
+    private Long id;
     private String name;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate createDate;
