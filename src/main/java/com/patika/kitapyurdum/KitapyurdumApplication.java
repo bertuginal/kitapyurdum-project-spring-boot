@@ -10,4 +10,6 @@ public class KitapyurdumApplication {
 		SpringApplication.run(KitapyurdumApplication.class, args);
 	}
 
+
+
 }

@@ -10,6 +10,7 @@ public class AddressConverter {
 
     public static Address toAddress(AddressSaveRequest request) {
         return Address.builder()
+                .id(request.getId())
                 .title(request.getTitle())
                 .province(request.getProvince())
                 .description(request.getDescription())

@@ -14,6 +14,7 @@ import java.util.Objects;
 @Builder
 public class Product {
 
+    private Long id;
     private String name;
     private BigDecimal amount;
     private String description;

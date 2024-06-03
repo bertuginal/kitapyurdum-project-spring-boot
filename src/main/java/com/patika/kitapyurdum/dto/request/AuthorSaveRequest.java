@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class AuthorSaveRequest {
 
+    private Long id;
     private String name;
     private String surname;
     private String biography;

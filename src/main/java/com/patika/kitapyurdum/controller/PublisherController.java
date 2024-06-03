@@ -2,7 +2,7 @@ package com.patika.kitapyurdum.controller;
 
 import com.patika.kitapyurdum.dto.request.PublisherSaveRequest;
 import com.patika.kitapyurdum.dto.response.GenericResponse;
-import com.patika.kitapyurdum.model.Customer;
+import com.patika.kitapyurdum.model.Author;
 import com.patika.kitapyurdum.model.Publisher;
 import com.patika.kitapyurdum.service.PublisherService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -35,6 +36,12 @@ public class PublisherController {
 
         Publisher publisher = publisherService.getById(id);
 
+        return GenericResponse.success(publisher);
+    }
+
+    @GetMapping("/name/{name}")
+    public GenericResponse<Optional<Publisher>> getByName(@PathVariable String name) {
+        Optional<Publisher> publisher = publisherService.getByName(name);
         return GenericResponse.success(publisher);
     }
 

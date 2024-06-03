@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public class AddressRepository {
 
@@ -17,5 +19,11 @@ public class AddressRepository {
 
     public List<Address> getAll() {
         return addresses;
+    }
+
+    public Optional<Address> findById(Long id) {
+        return getAll().stream()
+                .filter(address -> address.getId().equals(id))
+                .findFirst();
     }
 }

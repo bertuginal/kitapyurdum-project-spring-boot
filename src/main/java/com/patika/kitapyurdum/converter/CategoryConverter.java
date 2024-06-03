@@ -13,6 +13,7 @@ public class CategoryConverter {
 
     public static Category toCategory(CategorySaveRequest request) {
         return Category.builder()
+                .id(request.getId())
                 .name(request.getName())
                 .createDate(LocalDate.now())
                 .build();

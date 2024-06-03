@@ -13,9 +13,10 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class ProductSaveRequest {
 
+    private Long id;
     private String name;
     private BigDecimal amount;
     private String description;
-    private String publisherName;
-    private String categoryName;
+    private Long publisherId;
+    private Long categoryId;
 }

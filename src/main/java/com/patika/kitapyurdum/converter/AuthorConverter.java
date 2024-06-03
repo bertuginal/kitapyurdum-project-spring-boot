@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class AuthorConverter {
     public static Author toAuthor(AuthorSaveRequest request) {
         return Author.builder()
+                .Id(request.getId())
                 .name(request.getName())
                 .surname(request.getSurname())
                 .biography(request.getBiography())

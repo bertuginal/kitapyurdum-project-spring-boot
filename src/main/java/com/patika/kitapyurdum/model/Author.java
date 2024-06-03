@@ -1,5 +1,6 @@
 package com.patika.kitapyurdum.model;
 
+
 import lombok.*;
 
 import java.util.Set;
@@ -12,6 +13,8 @@ import java.util.Set;
 @Builder
 public class Author {
 
+
+    private Long Id;
     private String name;
     private String surname;
     private String biography;

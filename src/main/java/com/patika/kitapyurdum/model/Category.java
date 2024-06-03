@@ -13,6 +13,7 @@ import java.util.List;
 @Builder
 public class Category {
 
+    private Long id;
     private String name;
     private LocalDate createDate;
     private List<Product> productList;

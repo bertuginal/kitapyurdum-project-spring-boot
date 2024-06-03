@@ -10,6 +10,8 @@ import lombok.*;
 @Builder
 public class Address {
 
+
+    private Long id;
     private String title;
     private String province;
     private String description;

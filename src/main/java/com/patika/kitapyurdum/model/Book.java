@@ -14,8 +14,8 @@ public class Book extends Product {
 
     private Author author;
 
-    public Book(String name, BigDecimal amount, String description, LocalDate createDate, Publisher publisher, Category category, Author author) {
-        super(name, amount, description, createDate, publisher, category);
+    public Book(Long id, String name, BigDecimal amount, String description, LocalDate createDate, Publisher publisher, Category category, Author author) {
+        super(id, name, amount, description, createDate, publisher, category);
         this.author = author;
     }
 

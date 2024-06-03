@@ -1,5 +1,4 @@
 package com.patika.kitapyurdum.model;
-
 import lombok.*;
 
 import java.time.LocalDate;

@@ -10,6 +10,7 @@ import com.patika.kitapyurdum.exception.ExceptionMessages;
 import com.patika.kitapyurdum.exception.KitapYurdumException;
 import com.patika.kitapyurdum.model.Address;
 import com.patika.kitapyurdum.model.Customer;
+import com.patika.kitapyurdum.model.Product;
 import com.patika.kitapyurdum.model.Publisher;
 import com.patika.kitapyurdum.repository.AddressRepository;
 import com.patika.kitapyurdum.repository.CustomerRepository;
@@ -29,6 +30,12 @@ public class AddressService {
 
     public void save(AddressSaveRequest request) {
 
+        Optional<Address> foundAddress = addressRepository.findById(request.getId());
+        if (foundAddress.isPresent()) {
+            log.error(ExceptionMessages.ADDRESS_ALREADY_EXIST);
+            throw new KitapYurdumException(ExceptionMessages.ADDRESS_ALREADY_EXIST);
+        }
+
         Address address = AddressConverter.toAddress(request);
 
         addressRepository.save(address);
@@ -39,4 +46,16 @@ public class AddressService {
     public List<Address> getAllAddresses() {
         return addressRepository.getAll();
     }
+
+    public Address getById(Long id) {
+        Optional<Address> foundAddress = addressRepository.findById(id);
+
+        if (foundAddress.isEmpty()) {
+            log.error(ExceptionMessages.ADDRESS_NOT_FOUND);
+            throw new KitapYurdumException(ExceptionMessages.ADDRESS_NOT_FOUND);
+        }
+
+        return foundAddress.get();
+    }
+
 }

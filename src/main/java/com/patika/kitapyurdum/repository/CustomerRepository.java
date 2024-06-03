@@ -15,6 +15,7 @@ public class CustomerRepository {
     public void createCustomer(Customer customer) {
         customerList.add(customer);
     }
+    public Customer update(Customer customer) { return customer; }
 
     public List<Customer> getCustomerList() {
         return customerList;
@@ -31,4 +32,5 @@ public class CustomerRepository {
                 .filter(customer -> customer.getEmail().equals(email))
                 .findFirst();
     }
+
 }

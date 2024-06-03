@@ -1,6 +1,5 @@
 package com.patika.kitapyurdum.repository;
 
-import com.patika.kitapyurdum.model.Customer;
 import com.patika.kitapyurdum.model.Publisher;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +22,12 @@ public class PublisherRepository {
     public Optional<Publisher> findById(Long id) {
         return getAll().stream()
                 .filter(publisher -> publisher.getId().equals(id))
+                .findFirst();
+    }
+
+    public Optional<Publisher> findByName(String publisherName) {
+        return getAll().stream()
+                .filter(publisher -> publisher.getName().equals(publisherName))
                 .findFirst();
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class CategoryRepository {
@@ -18,5 +19,11 @@ public class CategoryRepository {
 
     public List<Category> getAll() {
         return categories;
+    }
+
+    public Optional<Category> findById(Long id) {
+        return getAll().stream()
+                .filter(category -> category.getId().equals(id))
+                .findFirst();
     }
 }

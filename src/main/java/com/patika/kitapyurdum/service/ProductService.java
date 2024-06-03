@@ -1,8 +1,12 @@
 package com.patika.kitapyurdum.service;
 
 import com.patika.kitapyurdum.converter.ProductConverter;
+import com.patika.kitapyurdum.dto.request.BookSaveRequest;
 import com.patika.kitapyurdum.dto.request.ProductSaveRequest;
 import com.patika.kitapyurdum.dto.response.ProductResponse;
+import com.patika.kitapyurdum.exception.ExceptionMessages;
+import com.patika.kitapyurdum.exception.KitapYurdumException;
+import com.patika.kitapyurdum.model.Book;
 import com.patika.kitapyurdum.model.Category;
 import com.patika.kitapyurdum.model.Product;
 import com.patika.kitapyurdum.model.Publisher;
@@ -11,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -25,27 +30,35 @@ public class ProductService {
 
     public void save(ProductSaveRequest request) {
 
-        Optional<Publisher> optionalPublisher = publisherService.getByName(request.getPublisherName());
-        Optional<Category> optionalCategory = categoryService.getByName(request.getCategoryName());
+        Publisher publisher = publisherService.getById(request.getPublisherId());
+        Category category = categoryService.getById(request.getCategoryId());
 
-        if (optionalPublisher.isEmpty()) {
-            log.error("Publisher not found! : {}", request.getPublisherName());
-            throw new RuntimeException("Publisher not found!");
-        }
-        if (optionalCategory.isEmpty()) {
-            log.error("Category not found! : {}", request.getCategoryName());
-            throw new RuntimeException("Category not found!");
+
+        Optional<Product> foundProduct = productRepository.findById(request.getId());
+        if (foundProduct.isPresent()) {
+            log.error(ExceptionMessages.PRODUCT_ALREADY_EXIST);
+            throw new KitapYurdumException(ExceptionMessages.PRODUCT_ALREADY_EXIST);
         }
 
-        Product product = ProductConverter.toProduct(request, optionalPublisher.get(), optionalCategory.get());
+        Product product = ProductConverter.toProduct(request, publisher, category);
 
         productRepository.save(product);
 
-        log.info("Product created! : {}", product.toString());
+        log.info("Product saved! : {}", product.toString());
     }
 
     public Set<ProductResponse> getAll() {
         return ProductConverter.toResponse(productRepository.getAll());
     }
 
+    public Product getById(Long id) {
+        Optional<Product> foundProduct = productRepository.findById(id);
+
+        if (foundProduct.isEmpty()) {
+            log.error(ExceptionMessages.PRODUCT_NOT_FOUND);
+            throw new KitapYurdumException(ExceptionMessages.PRODUCT_NOT_FOUND);
+        }
+
+        return foundProduct.get();
+    }
 }

@@ -22,6 +22,12 @@ public class PublisherService {
 
     public void save(PublisherSaveRequest request) {
 
+        Optional<Publisher> foundPublisher = publisherRepository.findById(request.getId());
+        if (foundPublisher.isPresent()) {
+            log.error(ExceptionMessages.PUBLISHER_ALREADY_EXIST);
+            throw new KitapYurdumException(ExceptionMessages.PUBLISHER_ALREADY_EXIST);
+        }
+
         Publisher publisher = PublisherConverter.toPublisher(request);
 
         publisherRepository.save(publisher);
@@ -49,4 +55,5 @@ public class PublisherService {
                 .filter(publisher -> publisher.getName().equals(publisherName))
                 .findFirst();
     }
+
 }
